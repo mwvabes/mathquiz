@@ -13,6 +13,22 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [selectedOperators, setSelectedOperators] = useState(['+', '-', '×', '÷'])
+  const [vibrateEnabled, setVibrateEnabled] = useState(() => {
+    const saved = localStorage.getItem('vibrateEnabled')
+    return saved !== null ? JSON.parse(saved) : true
+  })
+
+  // Funkcja wibracji
+  const vibrate = (duration = 10) => {
+    if (vibrateEnabled && navigator.vibrate) {
+      navigator.vibrate(duration)
+    }
+  }
+
+  // Zapisz ustawienie wibracji do localStorage
+  useEffect(() => {
+    localStorage.setItem('vibrateEnabled', JSON.stringify(vibrateEnabled))
+  }, [vibrateEnabled])
 
   // Generowanie nowego działania
   const generateNewQuestion = () => {
@@ -77,6 +93,7 @@ function App() {
 
   // Pominięcie pytania
   const skipQuestion = () => {
+    vibrate(15)
     setIncorrect(prev => prev + 1)
     setStreak(0)
     generateQuestion()
@@ -97,16 +114,19 @@ function App() {
 
   // Obsługa kliknięcia cyfry
   const handleNumberClick = (num) => {
+    vibrate(10)
     setAnswer(prev => prev + num)
   }
 
   // Obsługa backspace
   const handleBackspace = () => {
+    vibrate(10)
     setAnswer(prev => prev.slice(0, -1))
   }
 
   // Czyszczenie całej odpowiedzi
   const clearAnswer = () => {
+    vibrate(10)
     setAnswer('')
   }
 
@@ -119,6 +139,7 @@ function App() {
     const isCorrect = userAnswer === correctAnswer
 
     if (isCorrect) {
+      vibrate(30)
       setCorrect(prev => prev + 1)
       const newStreak = streak + 1
       setStreak(newStreak)
@@ -134,6 +155,7 @@ function App() {
         setIsSuccess(false)
       }, 400)
     } else {
+      vibrate([10, 50, 10])
       setIncorrect(prev => prev + 1)
       setStreak(0)
       // Czerwony border bez czyszczenia odpowiedzi
@@ -232,6 +254,18 @@ function App() {
                     onChange={() => toggleOperator('÷')}
                   />
                   <span>Dzielenie (÷)</span>
+                </label>
+              </div>
+
+              <h3 style={{ marginTop: '1.5rem' }}>Inne ustawienia:</h3>
+              <div className="operators-list">
+                <label className="operator-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={vibrateEnabled}
+                    onChange={() => setVibrateEnabled(!vibrateEnabled)}
+                  />
+                  <span>Wibracje</span>
                 </label>
               </div>
             </div>
