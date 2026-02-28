@@ -201,10 +201,16 @@ function App() {
           </div>
         </div>
         <div className="button-row">
-          <button className="control-btn" onClick={() => setShowSettings(true)} title="Ustawienia">
+          <button className="control-btn" onPointerDown={(e) => {
+            e.preventDefault()
+            setShowSettings(true)
+          }} title="Ustawienia">
             ⚙️
           </button>
-          <button className="control-btn" onClick={skipQuestion} title="Pomiń pytanie">
+          <button className="control-btn" onPointerDown={(e) => {
+            e.preventDefault()
+            skipQuestion()
+          }} title="Pomiń pytanie">
             ⏭
           </button>
         </div>
@@ -218,7 +224,10 @@ function App() {
           <div className="settings-popup" onClick={(e) => e.stopPropagation()}>
             <div className="settings-header">
               <h2>Ustawienia</h2>
-              <button className="close-btn" onClick={() => setShowSettings(false)}>×</button>
+              <button className="close-btn" onPointerDown={(e) => {
+                e.preventDefault()
+                setShowSettings(false)
+              }}>×</button>
             </div>
             <div className="settings-content">
               <h3>Wybierz operacje:</h3>
@@ -282,7 +291,10 @@ function App() {
             {answer || '='}
           </div>
           {answer && (
-            <button className="clear-answer-btn" onClick={clearAnswer} title="Wyczyść">
+            <button className="clear-answer-btn" onPointerDown={(e) => {
+              e.preventDefault()
+              clearAnswer()
+            }} title="Wyczyść">
               ×
             </button>
           )}
@@ -295,26 +307,38 @@ function App() {
             <button
               key={num}
               className="number-btn"
-              onClick={() => handleNumberClick(num.toString())}
+              onPointerDown={(e) => {
+                e.preventDefault()
+                handleNumberClick(num.toString())
+              }}
             >
               {num}
             </button>
           ))}
           <button
             className="number-btn backspace-btn"
-            onClick={handleBackspace}
+            onPointerDown={(e) => {
+              e.preventDefault()
+              handleBackspace()
+            }}
           >
             ⌫
           </button>
           <button
             className="number-btn"
-            onClick={() => handleNumberClick('0')}
+            onPointerDown={(e) => {
+              e.preventDefault()
+              handleNumberClick('0')
+            }}
           >
             0
           </button>
           <button
             className="number-btn check-btn"
-            onClick={checkAnswer}
+            onPointerDown={(e) => {
+              e.preventDefault()
+              checkAnswer()
+            }}
           >
             ✓
           </button>

@@ -348,7 +348,7 @@
   font-size: 1.6rem;
   font-weight: 600;
   padding: 0;
-  height: 70px;
+  height: 56px;
   border-radius: 14px;
   border: 2px solid #ffd900;
   background: #1a1a1a;
@@ -381,7 +381,7 @@
   background: #1a1a1a;
   border-color: #ff0040;
   color: #ff0040;
-  height: 70px;
+  height: 56px;
 }
 
 .backspace-btn:hover {
@@ -398,7 +398,7 @@
   border-color: #00ff88;
   color: #00ff88;
   font-size: 2rem;
-  height: 70px;
+  height: 56px;
 }
 
 .check-btn:hover {
@@ -437,16 +437,16 @@
 
   .number-btn {
     font-size: 1.5rem;
-    height: 60px;
+    height: 52px;
   }
 
   .check-btn {
     font-size: 1.8rem;
-    height: 60px;
+    height: 52px;
   }
 
   .backspace-btn {
-    height: 60px;
+    height: 52px;
   }
 
   .score-item {
